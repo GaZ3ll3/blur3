@@ -28,11 +28,11 @@ include $(MESHGENCPP)/lib/2d/Makefile.defs
 
 .cpp.o: ; $(LINK) $(FFLAGS) $*.cpp -o $*.o
 
-mesh: $(ALL_OBJECTS)
-	$(LINK) $(LFLAGS) $(ALL_OBJECTS) -o meshgen
+meshgen.exe: $(ALL_OBJECTS)
+	$(LINK) $(LFLAGS) $(ALL_OBJECTS) -o meshgen.exe
 	
 clean:
-	rm -f *.o meshgen
+	rm -f *.o meshgen.exe
 
 include $(MESHGENCPP)/lib/2d/Makefile.targets
 

@@ -1,5 +1,5 @@
 all: 
-	cd libs/qhull && make && cd ../meshgencpp && make
+	cd libs/qhull && make && cd ../meshgencpp && make && cd ../../src && make
 
 clean: cleanlibs cleansrc
 
