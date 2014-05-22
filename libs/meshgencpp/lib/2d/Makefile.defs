@@ -1,0 +1,124 @@
+
+# included from application Makefiles;
+# default definitions which application Makefiles can override
+
+NDIMS=2
+include $(MESHGENCPP)/lib/Makefile.defs
+#
+# libraries this file is for
+#
+LIB2D = $(MESHGENCPP)/lib/2d
+# how these libraries inherit
+LIB2D_INCLUDE = \
+  -I$(LIB2D) \
+  $(TOPLIB_INCLUDE)
+# inheriting libraries are expected to override this
+INCLUDE_LIBS = $(LIB2D_INCLUDE)
+
+# added to by applications
+#
+# (recall that make expands variables names when used, not when defined,
+# so it is okay that these are defined later.)
+#
+# applications are expected to override the definitions of ALL_*
+# in order to add additional files to the COMMON_* files.
+ALL_OBJECTS = $(COMMON_OBJECTS) # applications are expected to override this
+ALL_SOURCES = $(COMMON_SOURCES) # applications are expected to override this
+#
+# all applications must link to the following objects
+# (or an equivalent)
+COMMON_OBJECTS = $(OBJECTS_EXPECTED) $(LIBOBJECTS_COMMON)
+COMMON_SOURCES = $(SOURCES_EXPECTED) $(LIBSOURCES_COMMON)
+
+# default locations for expected application files
+#
+#
+# (If you want to be able to vary a particular name,
+# please do so by making definitions such as the following
+# and then overriding it in the application Makefile)
+
+SignedDistance = SignedDistance
+GridSpacing    = GridSpacing
+
+OBJECTS_EXPECTED = \
+  main.o \
+  $(SignedDistance).o \
+  $(GridSpacing).o \
+
+SOURCES_EXPECTED = \
+  main.cpp \
+  $(SignedDistance).cpp \
+  $(GridSpacing).cpp \
+
+
+# default library files that applications are likely to override
+#
+# (either with local or alternative library object modules)
+#
+# (Please expand this list as needed rather than overriding
+# LIBOBJECTS_COMMON in application Makefiles so that we can add
+# new object modules to the library without breaking existing
+# application Makefiles. Of course we could just define variables
+# for all the object modules in the library, but by doing it this
+# way we keep track of which object modules are currently being
+# overridden by some application)
+
+RunStartScript        = $(LIB2D)/RunStartScript
+MeshInputData         = $(LIB2D)/MeshInputData
+MeshCreateInitial     = $(LIB2D)/MeshCreateInitial
+MeshIterate           = $(LIB2D)/MeshIterate
+MeshCreateStructured  = $(LIB2D)/MeshCreateStructured
+MeshCleanup           = $(LIB2D)/MeshCleanup
+MeshBoundaryNodes     = $(LIB2D)/MeshBoundaryNodes
+MeshAddGhostCells     = $(LIB2D)/MeshAddGhostCells
+MeshEdgeData          = $(LIB2D)/MeshEdgeData
+MeshOrientEdge        = $(LIB2D)/MeshOrientEdge
+MeshStore             = $(LIB2D)/MeshStore
+ScreenOutput          = $(LIB2D)/ScreenOutput
+MeshPreProcess        = $(LIB2D)/MeshPreProcess
+MeshPostProcess1      = $(LIB2D)/MeshPostProcess1
+MeshPostProcess2      = $(LIB2D)/MeshPostProcess2
+MeshPostProcess3      = $(LIB2D)/MeshPostProcess3
+
+LIBOBJECTS_COMMON = \
+  $(TOPLIB_OBJECTS_COMMON) \
+  $(LIB2D)/mesh.o \
+  $(LIB2D)/meshgen2D.o \
+  $(RunStartScript).o \
+  $(MeshInputData).o \
+  $(MeshCreateInitial).o \
+  $(MeshIterate).o \
+  $(MeshCreateStructured).o \
+  $(MeshCleanup).o \
+  $(MeshBoundaryNodes).o \
+  $(MeshAddGhostCells).o \
+  $(MeshEdgeData).o \
+  $(MeshOrientEdge).o \
+  $(MeshStore).o \
+  $(ScreenOutput).o \
+  $(MeshPreProcess).o \
+  $(MeshPostProcess1).o \
+  $(MeshPostProcess2).o \
+  $(MeshPostProcess3).o \
+
+LIBSOURCES_COMMON = \
+  $(TOPLIB_SOURCES_COMMON) \
+  $(LIB2D)/mesh.cpp \
+  $(LIB2D)/*.h \
+  $(LIB2D)/meshgen2D.cpp \
+  $(RunStartScript).cpp \
+  $(MeshInputData).cpp \
+  $(MeshCreateInitial).cpp \
+  $(MeshIterate).cpp \
+  $(MeshCreateStructured).cpp \
+  $(MeshCleanup).cpp \
+  $(MeshBoundaryNodes).cpp \
+  $(MeshAddGhostCells).cpp \
+  $(MeshEdgeData).cpp \
+  $(MeshOrientEdge).cpp \
+  $(MeshStore).cpp \
+  $(ScreenOutput).cpp \
+  $(MeshPreProcess).cpp \
+  $(MeshPostProcess1).cpp \
+  $(MeshPostProcess2).cpp \
+  $(MeshPostProcess3).cpp \

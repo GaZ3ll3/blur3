@@ -1,0 +1,137 @@
+{appearance {+edge -evert linewidth 2} LIST # rbox 30 s D4 | qconvex s GhD0 Pd0d1d2D3 Tc
+OFF 3 1 1 # intersect f95 f292
+   0.276    0.284   -0.305 # projected p14
+  0.2723   -0.187  -0.1357 # projected p22
+0.005098  0.01836   -0.204 # projected p15
+3 0 1 2   0.7894   0.5968   0.1442 1.0
+OFF 3 1 1 # intersect f95 f261
+-0.004445  -0.1726   -0.302 # projected p16
+  0.2723   -0.187  -0.1357 # projected p22
+0.005098  0.01836   -0.204 # projected p15
+3 0 1 2   0.7894   0.5968   0.1442 1.0
+OFF 3 1 1 # intersect f95 f100
+-0.004445  -0.1726   -0.302 # projected p16
+   0.276    0.284   -0.305 # projected p14
+0.005098  0.01836   -0.204 # projected p15
+3 0 1 2   0.7894   0.5968   0.1442 1.0
+OFF 3 1 1 # intersect f95 f96
+-0.004445  -0.1726   -0.302 # projected p16
+   0.276    0.284   -0.305 # projected p14
+  0.2723   -0.187  -0.1357 # projected p22
+3 0 1 2   0.7894   0.5968   0.1442 1.0
+OFF 3 1 1 # intersect f206 f102
+  0.3973  -0.2684 -0.09842 # projected p24
+   0.276    0.284   -0.305 # projected p14
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.8572   0.4585   0.2344 1.0
+OFF 3 1 1 # intersect f206 f285
+  0.4381  0.03149 -0.03764 # projected p18
+   0.276    0.284   -0.305 # projected p14
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.8572   0.4585   0.2344 1.0
+OFF 3 1 1 # intersect f206 f208
+  0.4381  0.03149 -0.03764 # projected p18
+  0.3973  -0.2684 -0.09842 # projected p24
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.8572   0.4585   0.2344 1.0
+OFF 3 1 1 # intersect f206 f211
+  0.4381  0.03149 -0.03764 # projected p18
+  0.3973  -0.2684 -0.09842 # projected p24
+   0.276    0.284   -0.305 # projected p14
+3 0 1 2   0.8572   0.4585   0.2344 1.0
+OFF 3 1 1 # intersect f282 f209
+  0.3639   0.1163   0.3185 # projected p28
+  0.3765   0.1737   0.1977 # projected p10
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7417   0.5463   0.3892 1.0
+OFF 3 1 1 # intersect f282 f286
+   0.219   0.4195   -0.115 # projected p9
+  0.3765   0.1737   0.1977 # projected p10
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7417   0.5463   0.3892 1.0
+OFF 3 1 1 # intersect f282 f284
+   0.219   0.4195   -0.115 # projected p9
+  0.3639   0.1163   0.3185 # projected p28
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7417   0.5463   0.3892 1.0
+OFF 3 1 1 # intersect f282 f326
+   0.219   0.4195   -0.115 # projected p9
+  0.3639   0.1163   0.3185 # projected p28
+  0.3765   0.1737   0.1977 # projected p10
+3 0 1 2   0.7417   0.5463   0.3892 1.0
+OFF 3 1 1 # intersect f285 f294
+   0.219   0.4195   -0.115 # projected p9
+   0.276    0.284   -0.305 # projected p14
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7549   0.5465   0.3626 1.0
+OFF 3 1 1 # intersect f285 f286
+   0.219   0.4195   -0.115 # projected p9
+  0.4381  0.03149 -0.03764 # projected p18
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7549   0.5465   0.3626 1.0
+OFF 3 1 1 # intersect f285 f287
+   0.219   0.4195   -0.115 # projected p9
+  0.4381  0.03149 -0.03764 # projected p18
+   0.276    0.284   -0.305 # projected p14
+3 0 1 2   0.7549   0.5465   0.3626 1.0
+OFF 3 1 1 # intersect f286 f209
+  0.4381  0.03149 -0.03764 # projected p18
+  0.3765   0.1737   0.1977 # projected p10
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7459   0.5458   0.3818 1.0
+OFF 3 1 1 # intersect f286 f287
+   0.219   0.4195   -0.115 # projected p9
+  0.4381  0.03149 -0.03764 # projected p18
+  0.3765   0.1737   0.1977 # projected p10
+3 0 1 2   0.7459   0.5458   0.3818 1.0
+OFF 3 1 1 # intersect f292 f293
+   0.219   0.4195   -0.115 # projected p9
+  0.2723   -0.187  -0.1357 # projected p22
+0.005098  0.01836   -0.204 # projected p15
+3 0 1 2    0.745   0.6122   0.2651 1.0
+OFF 3 1 1 # intersect f292 f304
+   0.219   0.4195   -0.115 # projected p9
+   0.276    0.284   -0.305 # projected p14
+0.005098  0.01836   -0.204 # projected p15
+3 0 1 2    0.745   0.6122   0.2651 1.0
+OFF 3 1 1 # intersect f292 f294
+   0.219   0.4195   -0.115 # projected p9
+   0.276    0.284   -0.305 # projected p14
+  0.2723   -0.187  -0.1357 # projected p22
+3 0 1 2    0.745   0.6122   0.2651 1.0
+OFF 3 1 1 # intersect f293 f254
+  0.1273   0.2321   0.2215 # projected p21
+  0.2723   -0.187  -0.1357 # projected p22
+0.005098  0.01836   -0.204 # projected p15
+3 0 1 2   0.7115   0.5988   0.3677 1.0
+OFF 3 1 1 # intersect f293 f290
+   0.219   0.4195   -0.115 # projected p9
+  0.1273   0.2321   0.2215 # projected p21
+0.005098  0.01836   -0.204 # projected p15
+3 0 1 2   0.7115   0.5988   0.3677 1.0
+OFF 3 1 1 # intersect f293 f295
+   0.219   0.4195   -0.115 # projected p9
+  0.1273   0.2321   0.2215 # projected p21
+  0.2723   -0.187  -0.1357 # projected p22
+3 0 1 2   0.7115   0.5988   0.3677 1.0
+OFF 3 1 1 # intersect f294 f102
+   0.276    0.284   -0.305 # projected p14
+  0.2723   -0.187  -0.1357 # projected p22
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7636   0.5754    0.293 1.0
+OFF 3 1 1 # intersect f294 f295
+   0.219   0.4195   -0.115 # projected p9
+  0.2723   -0.187  -0.1357 # projected p22
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7636   0.5754    0.293 1.0
+OFF 3 1 1 # intersect f295 f253
+  0.1273   0.2321   0.2215 # projected p21
+  0.2723   -0.187  -0.1357 # projected p22
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7209   0.5825   0.3755 1.0
+OFF 3 1 1 # intersect f295 f284
+   0.219   0.4195   -0.115 # projected p9
+  0.1273   0.2321   0.2215 # projected p21
+  0.4483  -0.1201  0.02002 # projected p2
+3 0 1 2   0.7209   0.5825   0.3755 1.0
+}

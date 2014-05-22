@@ -1,0 +1,35 @@
+
+%.o : %.c
+	$(LINK) $(FFLAGS) $< -o $@
+
+program : $(ALL_SOURCES)
+	cat $(ALL_SOURCES) > mesh2program.cpp
+
+retags:
+	ctags $(TAGSOURCES)
+	$(MESHGENCPP)/scripts/makefiletags $(TAGSOURCES) >> tags
+	sort tags -o tags
+
+tags: retags
+
+ls:
+	ls $(ALL_SOURCES)
+
+lso:
+	ls $(ALL_OBJECTS)
+
+clean:
+	rm -f *.o *.aux *.log *.exe
+
+cleanout:
+	rm -rf output
+
+cleanallo:
+	rm -f $(ALL_OBJECTS) *.exe
+
+cleanall: cleanallo
+	rm -f $(CLEANALL_FILES)
+	rm -rf $(CLEANALL_DIRS)
+
+run:
+	time ./mesh.exe -o $(output)
