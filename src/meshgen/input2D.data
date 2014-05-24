@@ -1,5 +1,5 @@
 Unstructured          : Grid type (Structured vs. Unstructured)
-0.25                  : Initial grid spacing (H0)
+0.02                  : Initial grid spacing (H0)
 50000                 : Maximum allowed iterations
 2                     : Create a submesh with given integer refinement factor
 ----------------------------------------------------------------
