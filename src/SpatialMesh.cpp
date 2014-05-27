@@ -13,7 +13,7 @@ SpatialMesh::SpatialMesh(int sl, int sl0, AngularMesh Angle) {
 	ds = slevel - slevel0;
 	std::fstream smeshfile("src/smesh.txt", std::ios_base::in);
 	for (int i = 0 ; i <= slevel; i++){
-		struct spatialmesh refine;
+		spatialmesh refine;
 		double temp; smeshfile >> temp;
 		/* update np, ne, nt */
 		refine.nt = (int)temp;smeshfile >> temp;
@@ -167,6 +167,36 @@ void SpatialMesh::Update(){
 		}
 	}//end of loop i
 }
+
+void SpatialMesh::Mapping(){
+//	int temp;
+	// initialization
+	for (int i = 1; i <= slevel; i++){
+		smesh[i].smap.resize(smesh[i-1].nt);
+		for (int j = 0; j < smesh[i-1].nt ; j++){
+			smesh[i].smap[j].resize(TEMPSIZE);
+		}
+	}
+}
+
+void SpatialMesh::Mapping(spatialmesh cmesh, spatialmesh fmesh, IMATRIX& smap){
+	// initialization
+	int nt_c = cmesh.nt;
+	int nt_f = fmesh.nt;
+
+	DVECTOR distance; distance.resize(nt_c);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 double SpatialMesh::Area(double x1, double y1, double x2, double y2, double x3, double y3){
 	return fabs(0.50*(x2*y3 + x3*y1 + x1*y2 - x2*y1 -x3*y2 - y3*x1));

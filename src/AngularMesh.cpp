@@ -14,7 +14,7 @@ AngularMesh::AngularMesh(int al, int al0) {
 	std::fstream ameshfile("src/amesh.txt", std::ios_base::in);
 	// time complexity O(n)
 	for (int i = 0 ; i <= alevel; i++){
-		struct angularmesh refine;
+		angularmesh refine;
 		register double temp;
 		ameshfile >> temp;
 		refine.ns = (int)temp;

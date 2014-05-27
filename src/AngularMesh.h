@@ -11,19 +11,19 @@
 
 #include "Util.h"
 
-struct angularmesh
+typedef struct angularmesh
 {
 	int ns;
 	DMATRIX a;
 	DMATRIX w;
-};
+} angularmesh;
 
 
 class AngularMesh {
 public:
 	AngularMesh(int, int);
 	virtual ~AngularMesh();
-	std::vector<struct angularmesh> amesh;
+	std::vector<angularmesh> amesh;
 	int da;
 	int alevel;
 	int alevel0;

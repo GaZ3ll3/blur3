@@ -9,7 +9,7 @@
 #define SPATIALMESH_H_
 #include "AngularMesh.h"
 #include "Util.h"
-struct spatialmesh{
+typedef struct spatialmesh{
     int nt;
     int np;
     int ne;
@@ -30,7 +30,7 @@ struct spatialmesh{
     DMATRIX n;
     ITENSOR bd;
     ITENSOR bd2;
-};
+} spatialmesh;
 
 class SpatialMesh {
 public:
@@ -39,10 +39,14 @@ public:
 	void Show();
 	void Update();
 	void Mapping();
-	double Area(double, double, double , double ,double ,double);
+	void Mapping(spatialmesh, spatialmesh, IMATRIX &);
+	double Area(double x1, double y1, double x2, double y2, double x3, double y3);
 	int slevel, slevel0, alevel, alevel0;
 	int ds;
-	std::vector<struct spatialmesh> smesh;
+	std::vector<spatialmesh> smesh;
+
 };
+
+
 
 #endif /* SPATIALMESH_H_ */
