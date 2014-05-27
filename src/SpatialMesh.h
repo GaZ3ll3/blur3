@@ -36,10 +36,13 @@ class SpatialMesh {
 public:
 	SpatialMesh(int,int,AngularMesh);
 	virtual ~SpatialMesh();
+	void Show();
+	void Update();
+	double Area(double, double, double , double ,double ,double);
 	int slevel, slevel0, alevel, alevel0;
 	int ds;
 	std::vector<struct spatialmesh> smesh;
-	void show();
+
 };
 
 #endif /* SPATIALMESH_H_ */

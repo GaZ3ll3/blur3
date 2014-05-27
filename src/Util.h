@@ -21,4 +21,6 @@ typedef std::valarray<std::valarray<std::valarray<std::valarray<double>>>> DTUPL
 typedef std::valarray<std::valarray<std::valarray<int>>> ITENSOR;
 typedef std::valarray<std::valarray<std::valarray<double>>> DTENSOR;
 
+#define TEMPSIZE 20
+
 #endif /* UTIL_H_ */
