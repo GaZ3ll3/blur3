@@ -42,7 +42,6 @@ public:
 	int slevel, slevel0, alevel, alevel0;
 	int ds;
 	std::vector<struct spatialmesh> smesh;
-
 };
 
 #endif /* SPATIALMESH_H_ */
