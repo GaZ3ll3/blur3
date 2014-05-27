@@ -1,3 +1,0 @@
-
-include $(MESHGENCPP)/lib/Makefile.targets
-
