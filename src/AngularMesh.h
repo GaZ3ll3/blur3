@@ -9,18 +9,13 @@
 #ifndef ANGULARMESH_H_
 #define ANGULARMESH_H_
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <valarray>
-
-
+#include "Util.h"
 
 struct angularmesh
 {
 	int ns;
-	std::valarray<std::valarray<double > > a;
-	std::valarray<std::valarray<double > > w;
+	DMATRIX a;
+	DMATRIX w;
 };
 
 
