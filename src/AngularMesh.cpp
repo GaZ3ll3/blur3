@@ -34,6 +34,7 @@ AngularMesh::AngularMesh(int al, int al0) {
 		}
 		amesh.push_back(refine);
 	}
+	ameshfile.close();
 }
 
 AngularMesh::~AngularMesh() {
