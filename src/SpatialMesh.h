@@ -38,6 +38,7 @@ public:
 	virtual ~SpatialMesh();
 	void Show();
 	void Update();
+	void Mapping();
 	double Area(double, double, double , double ,double ,double);
 	int slevel, slevel0, alevel, alevel0;
 	int ds;

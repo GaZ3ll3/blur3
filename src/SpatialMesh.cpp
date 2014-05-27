@@ -25,7 +25,7 @@ SpatialMesh::SpatialMesh(int sl, int sl0, AngularMesh Angle) {
 			refine.so[j].resize(refine.nt);
 			for (int k = 0 ; k < refine.nt; k++){
 				smeshfile >> temp;
-				refine.so[j][k] = (int)temp;
+				refine.so[j][k] = (int)temp - 1;
 			} // end of loop k
 		}// end of loop j
 		/* update p[np][2] */
@@ -43,7 +43,7 @@ SpatialMesh::SpatialMesh(int sl, int sl0, AngularMesh Angle) {
 			refine.t[j].resize(3);
 			for (int k = 0; k < 3; k++){
 				smeshfile >> temp;
-				refine.t[j][k] = (int)temp;
+				refine.t[j][k] = (int)temp - 1;
 			}// end of loop k
 		}// end of loop j
 		/*
@@ -51,10 +51,10 @@ SpatialMesh::SpatialMesh(int sl, int sl0, AngularMesh Angle) {
 		 */
 		refine.e.resize(refine.ne);
 		for (int j = 0; j < refine.ne; j++){
-			refine.e.resize(2);
+			refine.e[j].resize(2);
 			for (int k = 0; k < 2; k++){
 				smeshfile >> temp;
-				refine.t[j][k] = (int)temp;
+				refine.e[j][k] = (int)temp - 1;
 			}// end of loop k
 		}//end of loop j
 		smesh.push_back(refine);
@@ -69,15 +69,37 @@ SpatialMesh::~SpatialMesh() {
 void SpatialMesh::Show(){
 	for (int i = 0; i <= slevel; i++)
 	{
-		std::cout << smesh[i].np << std::endl;
-		std::cout << smesh[i].nt << std::endl;
-		std::cout << smesh[i].ne << std::endl;
+		std::cout << i<<"th level:" << std::endl;
+		std::cout << "np = " << smesh[i].np << std::endl;
+		std::cout << "nt = " << smesh[i].nt << std::endl;
+		std::cout << "ne = " << smesh[i].ne << std::endl;
+
+		for (std::size_t j = 0 ; j < smesh[i].so.size(); j++){
+			std::cout << "Sweeping order for angle[" << j << "]:" ;
+			for (std::size_t k = 0; k < smesh[i].so[j].size(); k++){
+				std::cout << smesh[i].so[j][k] << " ";
+			}
+			std::cout << std::endl;
+		}
+
+		for (std::size_t j = 0; j < smesh[i].c.size(); j++){
+			std::cout << "centers: [" << j << "] = " << "(" << smesh[i].c[j][0] << smesh[i].c[j][1] << ")"<< std::endl;
+		}
+		for (std::size_t j = 0; j < smesh[i].a.size(); j++){
+			std::cout << "Area["<< j << "] = " << smesh[i].a[j] << std::endl;
+		}
+		for (std::size_t j = 0; j < smesh[i].p2.size(); j++){
+			std::cout << "number: " << smesh[i].p2[j][0] << std::endl;
+			for (std::size_t k = 1; k < smesh[i].p2[j].size(); k++){
+				std::cout << "Triangles: " << smesh[i].p2[j][k] << std::endl;
+			}
+		}
 	}
 }
 
 void SpatialMesh::Update(){
 /*
- *  ec[ne][2], a[nt], p2[np][p2[np][0] + 1]
+ * update some information
  */
 	int temp;
 	for (int i = 0 ; i <= slevel; i++){
@@ -92,6 +114,7 @@ void SpatialMesh::Update(){
 						smesh[i].p[smesh[i].t[j][2]][k])/3.0;
 			}
 		}// end of loop j
+
 		temp = smesh[i].ne;
 		smesh[i].ec.resize(temp);
 		for (int j  =0; j < temp; j++){
@@ -102,6 +125,7 @@ void SpatialMesh::Update(){
 						smesh[i].p[smesh[i].e[j][1]][k])/2.0;
 			}
 		}//end of loop j
+
 		temp = smesh[i].nt;
 		smesh[i].a.resize(temp);
 		for (int j =0; j < temp; j++){
@@ -113,11 +137,33 @@ void SpatialMesh::Update(){
 			double y3 = smesh[i].p[smesh[i].t[j][2]][1];
 			smesh[i].a[j] = Area(x1,y1,x2,y2,x3,y3);
 		}// end of loop j
+
 		temp = smesh[i].np;
+		// Auxiliary matrix, will free at last
+		IMATRIX p2;
+		p2.resize(temp);
 		smesh[i].p2.resize(temp);
 		for (int j = 0; j < temp; j++){
 			// dynamically allocate space, if failed, then spatial mesh is not acceptable. Angle too far away from Pi/3.
-			smesh[i].p2[j].resize(TEMPSIZE);
+			p2[j].resize(TEMPSIZE);
+		}
+		for (int k = 0; k < smesh[i].nt; k++){
+			for (int l = 0; l < 3; l++){
+				// traversal of triangle
+				p2[smesh[i].t[k][l]][0] += 1; // each triangle shared by three nodes
+				p2[smesh[i].t[k][l]][p2[smesh[i].t[k][l]][0]] = k;
+//				std::cout << "p2[" << smesh[i].t[k][l] << "][0] = " << p2[smesh[i].t[k][l]][0]  << std::endl;
+//				std::cout << "p2[" << smesh[i].t[k][l] << "][" << p2[smesh[i].t[k][l]][0] << "] = " <<  p2[smesh[i].t[k][l]][p2[smesh[i].t[k][l]][0]] << std::endl;
+			}
+		}//end of loop k
+		for (int j = 0; j < temp; j++){
+			smesh[i].p2[j].resize(p2[j][0]+1);
+		}
+		for (int j =0; j < temp; j++){
+			smesh[i].p2[j][0] = p2[j][0];
+			for (int k = 1; k < p2[j][0]+1; k++){
+				smesh[i].p2[j][k] = p2[j][k];
+			}
 		}
 	}//end of loop i
 }

@@ -23,4 +23,6 @@ typedef std::valarray<std::valarray<std::valarray<double>>> DTENSOR;
 
 #define TEMPSIZE 20
 
+#define GO 	std::cout << " go " << std::endl;
+
 #endif /* UTIL_H_ */
