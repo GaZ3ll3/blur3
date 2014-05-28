@@ -17,6 +17,7 @@ int main(int argc, char** argv)
 	SpatialMesh Space(1,0,Angle);
 	Space.Update();
 	Space.Mapping();
+	Space.Edge();
 	Space.Show();
 	return 0;
 }

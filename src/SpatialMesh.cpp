@@ -268,15 +268,16 @@ void SpatialMesh::Edge(){
 		// initialization
 		smesh[i].e2.resize(smesh[i].ne);
 		smesh[i].n.resize(smesh[i].ne);
+		smesh[i].ori.resize(smesh[i].ne);
 		for (int j = 0; j < smesh[i].ne ; j++){
 			smesh[i].e2[j].resize(2);
 			smesh[i].n[j].resize(2);
 		}
 		smesh[i].so2.resize(smesh[i].nt);
 		for (int j = 0; j < smesh[i].nt ; j++){
-			smesh[i].so[j].resize(3);
+			smesh[i].so2[j].resize(3);
 		}
-		smesh[i].ori.resize(smesh[i].ne);
+
 		Edge(smesh[i].ne, smesh[i].nt,
 				smesh[i].t, smesh[i].p2, smesh[i].p,
 				smesh[i].e, smesh[i].e2, smesh[i].so2,
