@@ -12,6 +12,9 @@
 int main(int argc, char** argv)
 {
 	std::cout << "Blur 2" << std::endl;
+	/*
+	 * Initialization of spatial mesh and angular mesh.
+	 */
 	AngularMesh Angle(3,1);
 	Angle.show();
 	SpatialMesh Space(1,0,Angle);
@@ -20,6 +23,9 @@ int main(int argc, char** argv)
 	Space.Edge();
 	Space.Boundary(Angle);
 	Space.Show();
+	/*
+	 * End of Initialization
+	 */
 	return 0;
 }
 
