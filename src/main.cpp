@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 	 */
 	AngularMesh Angle(3,1);
 	Angle.show();
-	SpatialMesh Space(1,0,Angle);
+	SpatialMesh Space(3,3,Angle);
 	Space.Update();
 	Space.Mapping();
 	Space.Edge();

@@ -63,7 +63,7 @@ SpatialMesh::SpatialMesh(int sl, int sl0, AngularMesh& Angle) {
 }
 
 SpatialMesh::~SpatialMesh() {
-	// TODO Auto-generated destructor stub
+	std::cout << "Destroyed Everything Spatial" << std::endl;
 }
 
 void SpatialMesh::Show(){
@@ -260,7 +260,26 @@ void SpatialMesh::Mapping(spatialmesh& cmesh, spatialmesh& fmesh, IMATRIX& smap)
 
 //TODO
 void SpatialMesh::Mapping(spatialmesh& cmesh, spatialmesh& fmesh, IMATRIX& smap, DTUPLE& cf, DTUPLE& fc){
-
+	// setup
+	IMATRIX itemp;
+	DMATRIX dtemp;
+	IMATRIX ind_p;
+	itemp.resize(3*TEMPSIZE);
+	dtemp.resize(3*TEMPSIZE);
+	ind_p.resize(TEMPSIZE);
+	for (int i = 0; i < 3*TEMPSIZE; i++){
+		itemp[i].resize(2);
+		dtemp[i].resize(3);
+	}
+	for (int i = 0 ; i < TEMPSIZE; i++){
+		ind_p[i].resize(3);
+	}
+	// end of setup
+	int nt_c = cmesh.nt;
+	for (int i = 0 ; i < nt_c ; i++){
+		itemp[0][0] = fmesh.t[smap[i][1]][0];
+		itemp[0][1] = 1;
+	}
 }
 
 void SpatialMesh::Edge(){

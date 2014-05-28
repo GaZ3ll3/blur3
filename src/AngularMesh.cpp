@@ -38,7 +38,7 @@ AngularMesh::AngularMesh(int al, int al0) {
 }
 
 AngularMesh::~AngularMesh() {
-	// TODO Auto-generated destructor stub
+	std::cout << "Destroyed Everything Angular" << std::endl;
 }
 
 
