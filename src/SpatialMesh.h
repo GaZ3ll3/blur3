@@ -39,12 +39,15 @@ public:
 	void Show();
 	void Update();
 	void Mapping();
-	void Mapping(spatialmesh, spatialmesh, IMATRIX &);
+	void Mapping(spatialmesh&, spatialmesh&, IMATRIX&);
+	void Mapping(spatialmesh&, spatialmesh&, IMATRIX&, DTUPLE&, DTUPLE&);
+	void Edge();
+	std::size_t locate_min(DVECTOR&);
+	double find_max(DVECTOR&);
 	double Area(double x1, double y1, double x2, double y2, double x3, double y3);
 	int slevel, slevel0, alevel, alevel0;
 	int ds;
 	std::vector<spatialmesh> smesh;
-
 };
 
 

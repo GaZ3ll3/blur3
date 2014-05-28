@@ -94,6 +94,12 @@ void SpatialMesh::Show(){
 				std::cout << "Triangles: " << smesh[i].p2[j][k] << std::endl;
 			}
 		}
+		for (std::size_t j =0 ; j < smesh[i].smap.size(); j++){
+			std::cout << "smap: " << smesh[i].smap[j][0] << std::endl;
+			for (std::size_t k = 1; k < smesh[i].smap[j].size(); k++){
+				std::cout << "smap[" << j << "][" << k << "] = " << smesh[i].smap[j][k] << std::endl;
+			}
+		}
 	}
 }
 
@@ -160,8 +166,7 @@ void SpatialMesh::Update(){
 			smesh[i].p2[j].resize(p2[j][0]+1);
 		}
 		for (int j =0; j < temp; j++){
-			smesh[i].p2[j][0] = p2[j][0];
-			for (int k = 1; k < p2[j][0]+1; k++){
+			for (int k = 0; k < p2[j][0]+1; k++){
 				smesh[i].p2[j][k] = p2[j][k];
 			}
 		}
@@ -169,33 +174,117 @@ void SpatialMesh::Update(){
 }
 
 void SpatialMesh::Mapping(){
-//	int temp;
 	// initialization
+	IMATRIX smap;
 	for (int i = 1; i <= slevel; i++){
+		smap.resize(smesh[i-1].nt);
 		smesh[i].smap.resize(smesh[i-1].nt);
 		for (int j = 0; j < smesh[i-1].nt ; j++){
-			smesh[i].smap[j].resize(TEMPSIZE);
+			smap[j].resize(TEMPSIZE);
+		}// end of loop j
+
+		Mapping(smesh[i-1], smesh[i], smap);
+
+		for (int j = 0; j < smesh[i-1].nt; j++){
+			smesh[i].smap[j].resize(smap[j][0]+1);
+			for (int k = 0; k < smap[j][0] + 1; k++){
+				smesh[i].smap[j][k] = smap[j][k];
+			}// end of loop k
+		}//end of loop j
+
+		smesh[i].cf.resize(smesh[i-1].nt);
+
+		for (int j = 0; j < smesh[i-1].nt; j++){
+			smesh[i].cf[j].resize(3);
+			for (int k =0 ; k < 3; k++){
+				smesh[i].cf[j][k].resize(smesh[i].smap[j][0]);
+				for (int l=0; l < smesh[i].smap[j][0]; l++){
+					smesh[i].cf[j][k][l].resize(3);
+				}// end of loop l
+			}//end of loop k
+		}//end of loop j
+		smesh[i].fc.resize(smesh[i-1].nt);
+		for (int j = 0; j < smesh[i-1].nt; j++){
+			smesh[i].fc[j].resize(3);
+			for (int k =0 ; k < 3; k++){
+				smesh[i].fc[j][k].resize(smesh[i].smap[j][0]);
+				for (int l=0; l < smesh[i].smap[j][0]; l++){
+					smesh[i].fc[j][k][l].resize(3);
+				}//end of loop l
+			}//end of loop k
+		}//end of loop j
+
+		Mapping(smesh[i-1], smesh[i], smesh[i].smap, smesh[i].cf, smesh[i].fc);
+
+	}// end of loop i
+}
+
+void SpatialMesh::Mapping(spatialmesh& cmesh, spatialmesh& fmesh, IMATRIX& smap){
+	// initialization
+	int nt_c = cmesh.nt;
+	int tri;
+	double dmax, x1,x2,x3,y1,y2,y3, area1,area2,area3;
+	DVECTOR distance; distance.resize(nt_c);
+	for (int i = 0; i < fmesh.nt; i++){
+		int flag = 0;
+		double x = fmesh.c[i][0];
+		double y = fmesh.c[i][1];
+		for (int j = 0; j < nt_c; j++){
+			distance[j] = pow(x - cmesh.c[j][0],2) + pow(y - cmesh.c[j][1],2);
+		}
+		// linear time
+		dmax = find_max(distance);
+		// linear search maximum will be faster, since it is neighborhood related only. Finished in linear time.
+		// quick sort needs NlogN time complexity.
+		for (int j = 0; j < nt_c ; j++){
+			tri = locate_min(distance);
+			distance[(int)tri] = dmax;
+			x1 = cmesh.p[cmesh.t[tri][0]][0]; y1 = cmesh.p[cmesh.t[tri][0]][1];
+			x2 = cmesh.p[cmesh.t[tri][1]][0]; y2 = cmesh.p[cmesh.t[tri][1]][1];
+			x3 = cmesh.p[cmesh.t[tri][2]][0]; y3 = cmesh.p[cmesh.t[tri][2]][1];
+			area1 = Area(x,y,x1,y1,x2,y2);
+			area2 = Area(x,y,x2,y2,x3,y3);
+			area3 = Area(x,y,x3,y3,x1,y1);
+			if ((cmesh.a[tri] - area1 - area2 -area3)/cmesh.a[tri] < TOL){
+				flag = 1;
+				smap[tri][0]+=1;
+				smap[tri][smap[tri][0]]=i;
+				break;
+			}
+		}
+		if (flag == 0){
+			std::cout << "mapping does not fit" << std::endl;
 		}
 	}
 }
 
-void SpatialMesh::Mapping(spatialmesh cmesh, spatialmesh fmesh, IMATRIX& smap){
-	// initialization
-	int nt_c = cmesh.nt;
-	int nt_f = fmesh.nt;
+void SpatialMesh::Mapping(spatialmesh& cmesh, spatialmesh& fmesh, IMATRIX& smap, DTUPLE& cf, DTUPLE& fc){
 
-	DVECTOR distance; distance.resize(nt_c);
 }
 
+void SpatialMesh::Edge(){
 
+}
+std::size_t SpatialMesh::locate_min(DVECTOR& vec){
+	double dmin = vec[0]; std::size_t ind = 0;
+	for (std::size_t i = 1; i < vec.size(); i++){
+		if (dmin > vec[i]){
+			dmin = vec[i];
+			ind = i;
+		}
+	}
+	return ind;
+}
 
-
-
-
-
-
-
-
+double SpatialMesh::find_max(DVECTOR& vec){
+	double dmax = vec[0];
+	for (std::size_t i = 1; i < vec.size(); i++){
+		if (dmax < vec[i]){
+			dmax = vec[i];
+		}
+	}
+	return dmax;
+}
 
 
 double SpatialMesh::Area(double x1, double y1, double x2, double y2, double x3, double y3){

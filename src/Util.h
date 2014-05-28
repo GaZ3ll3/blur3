@@ -22,6 +22,7 @@ typedef std::valarray<std::valarray<std::valarray<int>>> ITENSOR;
 typedef std::valarray<std::valarray<std::valarray<double>>> DTENSOR;
 
 #define TEMPSIZE 20
+#define TOL 1e-3
 
 #define GO 	std::cout << " go " << std::endl;
 
