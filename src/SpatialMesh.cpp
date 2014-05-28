@@ -258,11 +258,37 @@ void SpatialMesh::Mapping(spatialmesh& cmesh, spatialmesh& fmesh, IMATRIX& smap)
 	}
 }
 
+//TODO
 void SpatialMesh::Mapping(spatialmesh& cmesh, spatialmesh& fmesh, IMATRIX& smap, DTUPLE& cf, DTUPLE& fc){
 
 }
 
 void SpatialMesh::Edge(){
+	for (int i = 0; i <= slevel; i++){
+		// initialization
+		smesh[i].e2.resize(smesh[i].ne);
+		smesh[i].n.resize(smesh[i].ne);
+		for (int j = 0; j < smesh[i].ne ; j++){
+			smesh[i].e2[j].resize(2);
+			smesh[i].n[j].resize(2);
+		}
+		smesh[i].so2.resize(smesh[i].nt);
+		for (int j = 0; j < smesh[i].nt ; j++){
+			smesh[i].so[j].resize(3);
+		}
+		smesh[i].ori.resize(smesh[i].ne);
+		Edge(smesh[i].ne, smesh[i].nt,
+				smesh[i].t, smesh[i].p2, smesh[i].p,
+				smesh[i].e, smesh[i].e2, smesh[i].so2,
+				smesh[i].n, smesh[i].ori);
+	}
+
+}
+//TODO
+void SpatialMesh::Edge(int ne, int nt,
+		IMATRIX& t,IMATRIX& p2,DMATRIX& p,
+		IMATRIX& e, IMATRIX& e2, IMATRIX& so2,
+		DMATRIX& n, IVECTOR& ori){
 
 }
 std::size_t SpatialMesh::locate_min(DVECTOR& vec){

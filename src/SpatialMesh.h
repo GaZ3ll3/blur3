@@ -25,8 +25,8 @@ typedef struct spatialmesh{
     DTUPLE cf;
     DTUPLE fc;
     IVECTOR ori;
-    ITENSOR e2;
-    ITENSOR so2;
+    IMATRIX e2;
+    IMATRIX so2;
     DMATRIX n;
     ITENSOR bd;
     ITENSOR bd2;
@@ -42,6 +42,7 @@ public:
 	void Mapping(spatialmesh&, spatialmesh&, IMATRIX&);
 	void Mapping(spatialmesh&, spatialmesh&, IMATRIX&, DTUPLE&, DTUPLE&);
 	void Edge();
+	void Edge(int, int, IMATRIX&,IMATRIX&,DMATRIX&, IMATRIX&, IMATRIX&, IMATRIX&, DMATRIX&, IVECTOR&);
 	std::size_t locate_min(DVECTOR&);
 	double find_max(DVECTOR&);
 	double Area(double x1, double y1, double x2, double y2, double x3, double y3);
