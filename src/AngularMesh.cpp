@@ -46,7 +46,7 @@ void AngularMesh::show()
 {
 	for (register int i = 0; i <= alevel; i++)
 	{
-		std::cout << amesh[i].ns << std::endl;
+		std::cout << i <<"th level grid of angles:" << amesh[i].ns << std::endl;
 	}
 }
 

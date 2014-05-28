@@ -34,7 +34,7 @@ typedef struct spatialmesh{
 
 class SpatialMesh {
 public:
-	SpatialMesh(int,int,AngularMesh);
+	SpatialMesh(int,int,AngularMesh&);
 	virtual ~SpatialMesh();
 	void Show();
 	void Update();
@@ -44,6 +44,8 @@ public:
 	void Edge();
 	void Edge(int, int, IMATRIX&,IMATRIX&,DMATRIX&, IMATRIX&, IMATRIX&, IMATRIX&, DMATRIX&, IVECTOR&);
 	std::size_t locate_min(DVECTOR&);
+	void Boundary(AngularMesh&);
+	void Boundary(int, DVECTOR&,DMATRIX&, IMATRIX&,IMATRIX&, IMATRIX&, IMATRIX&, IMATRIX&);
 	double find_max(DVECTOR&);
 	double Area(double x1, double y1, double x2, double y2, double x3, double y3);
 	int slevel, slevel0, alevel, alevel0;

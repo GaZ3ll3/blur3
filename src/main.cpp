@@ -18,6 +18,7 @@ int main(int argc, char** argv)
 	Space.Update();
 	Space.Mapping();
 	Space.Edge();
+	Space.Boundary(Angle);
 	Space.Show();
 	return 0;
 }

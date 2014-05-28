@@ -7,7 +7,7 @@
 
 #include "SpatialMesh.h"
 
-SpatialMesh::SpatialMesh(int sl, int sl0, AngularMesh Angle) {
+SpatialMesh::SpatialMesh(int sl, int sl0, AngularMesh& Angle) {
 	// TODO Auto-generated constructor stub
 	slevel = sl; slevel0 = sl0;
 	ds = slevel - slevel0;
@@ -277,7 +277,7 @@ void SpatialMesh::Edge(){
 		for (int j = 0; j < smesh[i].nt ; j++){
 			smesh[i].so2[j].resize(3);
 		}
-
+		// compute
 		Edge(smesh[i].ne, smesh[i].nt,
 				smesh[i].t, smesh[i].p2, smesh[i].p,
 				smesh[i].e, smesh[i].e2, smesh[i].so2,
@@ -290,6 +290,43 @@ void SpatialMesh::Edge(int ne, int nt,
 		IMATRIX& t,IMATRIX& p2,DMATRIX& p,
 		IMATRIX& e, IMATRIX& e2, IMATRIX& so2,
 		DMATRIX& n, IVECTOR& ori){
+
+}
+
+
+void SpatialMesh::Boundary(AngularMesh& Angle){
+	// initialization
+	for (int i = 0; i <= slevel; i++){
+		smesh[i].bd.resize(Angle.amesh[Angle.alevel].ns);
+		for (int j = 0; j < Angle.amesh[Angle.alevel].ns; j++){
+			smesh[i].bd[j].resize(smesh[i].nt);
+			for (int k = 0; k < smesh[i].nt; k++){
+				smesh[i].bd[j][k].resize(9);
+			}
+		}
+	}
+	for (int i = 0; i <= slevel; i++){
+		smesh[i].bd2.resize(Angle.amesh[Angle.alevel].ns);
+		for (int j = 0; j < Angle.amesh[Angle.alevel].ns; j++){
+			smesh[i].bd2[j].resize(smesh[i].nt);
+			for (int k = 0; k < smesh[i].nt; k++){
+				smesh[i].bd2[j][k].resize(3);
+			}
+		}
+	}
+	// compute
+	for (int i = 0; i<= slevel; i++){
+		for (int j=0; j < Angle.amesh[Angle.alevel].ns; j++){
+			Boundary(smesh[i].nt, Angle.amesh[Angle.alevel].a[j], smesh[i].p,
+					smesh[i].p2, smesh[i].t, smesh[i].bd[j], smesh[i].bd2[j], smesh[i].so2);
+
+		}
+	}
+}
+
+//TODO
+void SpatialMesh::Boundary(int nt, DVECTOR& theta, DMATRIX& p,
+		IMATRIX& p2, IMATRIX& t, IMATRIX& bd, IMATRIX& bd2, IMATRIX& so2){
 
 }
 std::size_t SpatialMesh::locate_min(DVECTOR& vec){
