@@ -51,7 +51,6 @@ SpatialMesh::~SpatialMesh() {
 	std::cout << "Destroyed Everything Spatial" << std::endl;
 }
 
-
 void SpatialMesh::Update(){
 	c.resize(nt);
 	for (int j = 0; j < nt; j++){
@@ -146,9 +145,9 @@ void SpatialMesh::Update_boundary(){
         	}
         }
         // inner node
-        for (int l = 1; l < 3; l++){
+        for (int l = 0; l < 3; l++){
         	if (t[tri][l]!= e[j][1] && t[tri][l]!=e[j][2]){
-        		e[j][3]=t[tri][l];//non-edge node
+        		e[j][3]=t[tri][l];
         		so2[tri][l] = j;
         		break;
         	}
@@ -175,6 +174,9 @@ void SpatialMesh::Update_boundary(AngularMesh& Angle){
 		bd[j].resize(nt);
 		for (register int k = 0; k < nt; k++){
 			bd[j][k].resize(9);
+			for (int l = 0 ; l < 9 ; l++){
+				bd[j][k][l] = -1;
+			}
 		}
 	}
 	bd2.resize(Angle.ns);
@@ -190,9 +192,104 @@ void SpatialMesh::Update_boundary(AngularMesh& Angle){
 }
 
 void SpatialMesh::Flux(int nt,DVECTOR& theta,DMATRIX& p,IMATRIX& p2,IMATRIX& t,IMATRIX& bd,DMATRIX& bd2,IMATRIX& so2){
+	double a = theta[0];
+	double b = theta[1];
+	double dx, dy;
 
+	for (register int j = 0; j < nt; j++){
+		double x1 = p[t[j][0]][0]; double y1 = p[t[j][0]][1];
+		double x2 = p[t[j][1]][0]; double y2 = p[t[j][1]][1];
+		double x3 = p[t[j][2]][0]; double y3 = p[t[j][2]][1];
+
+		// 1st edge "23"
+		dx = y3 - y2; dy = x2 - x3;
+		if(dx*(x1-x3)+dy*(y1-y3)>0){
+			dx=-dx;
+			dy=-dy;
+		}
+		bd2[j][0] = a*dx + b*dy;
+		if (bd2[j][0] < 0 && so2[j][0] == -1){
+			bd[j][0] = locate_tri(j, p2[t[j][1]], p2[t[j][2]]);
+			if (bd[j][0]!=-1){
+				//exists
+				for(int k = 0; k < 3; k++){
+					if(t[bd[j][0]][k]==t[j][1]){
+						bd[j][1] = k;
+						break;
+					}
+				}
+				for(int k = 0; k < 3; k++){
+					if(t[bd[j][0]][k]==t[j][2]){
+						bd[j][2] = k;
+						break;
+					}
+				}
+			}
+		}
+
+		// 2nd edge "31"
+		dx = y1 - y3; dy = x3 - x1;
+		if(dx*(x2-x3)+dy*(y2-y3)>0){
+			dx=-dx;
+			dy=-dy;
+		}
+		bd2[j][1] = a*dx + b*dy;
+		if (bd2[j][1] < 0 && so2[j][1] == -1){
+			bd[j][3] = locate_tri(j, p2[t[j][0]], p2[t[j][2]]);
+			if (bd[j][3]!=-1){
+				//exists
+				for(int k = 0; k < 3; k++){
+					if(t[bd[j][3]][k]==t[j][2]){
+						bd[j][4] = k;
+						break;
+					}
+				}
+				for(int k = 0; k < 3; k++){
+					if(t[bd[j][3]][k]==t[j][0]){
+						bd[j][5] = k;
+						break;
+					}
+				}
+			}
+		}
+		// 3rd edge "12"
+		dx = y2 - y1; dy = x1 - x2;
+		if(dx*(x3-x1)+dy*(y3-y1)>0){
+			dx=-dx;
+			dy=-dy;
+		}
+		bd2[j][2] = a*dx + b*dy;
+		if (bd2[j][2] < 0 && so2[j][2] == -1){
+			bd[j][6] = locate_tri(j, p2[t[j][1]], p2[t[j][2]]);
+			if (bd[j][6]!=-1){
+				//exists
+				for(int k = 0; k < 3; k++){
+					if(t[bd[j][6]][k]==t[j][0]){
+						bd[j][7] = k;
+						break;
+					}
+				}
+				for(int k = 0; k < 3; k++){
+					if(t[bd[j][6]][k]==t[j][1]){
+						bd[j][8] = k;
+						break;
+					}
+				}
+			}
+		}
+	}
 }
 
+int SpatialMesh::locate_tri(int tri, IVECTOR& pt1, IVECTOR pt2){
+	for (int i = 1; i < pt1[0] + 1; i++){
+		for (int j = 1; j < pt2[0] + 1; j++){
+			if (pt1[i] == pt2[j] && tri!=pt1[i]){
+				return pt1[i];
+			}
+		}
+	}
+	return -1;
+}
 
 int SpatialMesh::locate_tri(IVECTOR& pt1, IVECTOR& pt2){
 	for (int i = 1; i < pt1[0] + 1; i++){
@@ -245,8 +342,10 @@ void SpatialMesh::Show(){
 	for (std::size_t j = 0; j < e.size(); j++){
 		std::cout << "edges: [" << j << "] = " << "(" << e[j][0] << "," << e[j][1] << "," << e[j][2] << "," << e[j][3] << ")"<< std::endl;
 	}
+	for (std::size_t j = 0; j < so2.size(); j++){
+		std::cout << "so2: [" << j << "] = " << so2[j][0] << "," << so2[j][1] << "," << so2[j][2] << std::endl;
+	}
 }
-
 
 std::size_t SpatialMesh::locate_min(DVECTOR& vec){
 	double dmin = vec[0]; std::size_t ind = 0;
@@ -268,7 +367,6 @@ double SpatialMesh::find_max(DVECTOR& vec){
 	}
 	return dmax;
 }
-
 
 double SpatialMesh::Area(double x1, double y1, double x2, double y2, double x3, double y3){
 	return fabs(0.50*(x2*y3 + x3*y1 + x1*y2 - x2*y1 -x3*y2 - y3*x1));

@@ -22,6 +22,7 @@ public:
 	void Flux(int nt,DVECTOR& theta,DMATRIX& p,IMATRIX& p2,IMATRIX& t,IMATRIX& bd,DMATRIX& bd2,IMATRIX& so2);
 	std::size_t locate_min(DVECTOR&);
 	int locate_tri(IVECTOR& , IVECTOR&);
+	int locate_tri(int tri, IVECTOR& pt1, IVECTOR pt2);
 	double find_max(DVECTOR&);
 	double Area(double x1, double y1, double x2, double y2, double x3, double y3);
     int nt;
