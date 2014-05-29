@@ -9,25 +9,16 @@
 #ifndef ANGULARMESH_H_
 #define ANGULARMESH_H_
 
-#include "Util.h"
-
-typedef struct angularmesh
-{
-	int ns;
-	DMATRIX a;
-	DMATRIX w;
-} angularmesh;
-
+#include "../../../Util.h"
 
 class AngularMesh {
 public:
-	AngularMesh(int, int);
+	AngularMesh();
 	virtual ~AngularMesh();
-	std::vector<angularmesh> amesh;
-	int da;
-	int alevel;
-	int alevel0;
-	void show();
+	int ns;
+	DMATRIX a;
+	DMATRIX w;
+	void Show();
 
 };
 
