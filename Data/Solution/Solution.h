@@ -16,7 +16,6 @@ class Solution {
 public:
 	Solution(SpatialMesh&, AngularMesh&);
 	virtual ~Solution();
-	DTENSOR sol;
 	DTENSOR flux;
 	DTENSOR residue;
 
