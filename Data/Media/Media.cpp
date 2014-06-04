@@ -7,6 +7,7 @@
 
 #include "Media.h"
 
+// Media value at nodal point
 Media::Media(SpatialMesh& Space, AngularMesh& Angle) {
 	// TODO Auto-generated constructor stub
 	ua.resize(Space.nt);

@@ -28,7 +28,7 @@ public:
 	DTENSOR RHS;
 	DTENSOR q;
 	source  lumin;
-	source  boundary;
+	source  bound;
 	double distance(double&,double&,double&,double&);
 
 };
